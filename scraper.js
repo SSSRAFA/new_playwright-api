@@ -25,7 +25,14 @@ async function buscarProduto(produto) {
             timeout: 60000
         }
     );
+    
+console.log("URL:", page.url());
 
+console.log("Título:", await page.title());
+
+console.log("HTML:");
+console.log(await page.content());
+    
     // espera os produtos aparecerem
     await page.waitForSelector(".poly-card", {
         timeout: 30000
