@@ -1,0 +1,13 @@
+{
+  "name": "playwright-api",
+  "version": "1.0.0",
+  "description": "API para buscar ofertas do Mercado Livre usando Playwright",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "playwright": "^1.54.1"
+  }
+}
