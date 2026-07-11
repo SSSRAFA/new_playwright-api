@@ -6,17 +6,22 @@ async function buscarProduto(produto) {
         headless: true
     });
 
-    const page = await browser.newPage({
+    const context = await browser.newContext({
         viewport: {
             width: 1366,
             height: 768
-        }
+        },
+        userAgent:
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+        locale: "pt-BR"
     });
+
+    const page = await context.newPage();
 
     await page.goto(
         `https://lista.mercadolivre.com.br/${encodeURIComponent(produto)}`,
         {
-            waitUntil: "networkidle",
+            waitUntil: "domcontentloaded",
             timeout: 60000
         }
     );
