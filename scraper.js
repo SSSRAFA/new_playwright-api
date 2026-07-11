@@ -18,27 +18,31 @@ async function buscarProduto(produto) {
 
     const page = await context.newPage();
 
-    await page.goto(
+    console.log("========================================");
+    console.log("Pesquisando:", produto);
+
+    const response = await page.goto(
         `https://lista.mercadolivre.com.br/${encodeURIComponent(produto)}`,
         {
             waitUntil: "domcontentloaded",
             timeout: 60000
         }
     );
-    
-console.log("URL:", page.url());
 
-console.log("Título:", await page.title());
+    console.log("Status HTTP:", response ? response.status() : "sem resposta");
+    console.log("URL Final:", page.url());
+    console.log("Título:", await page.title());
 
-console.log("HTML:");
-console.log(await page.content());
-    
-    // espera os produtos aparecerem
+    const html = await page.content();
+
+    console.log("Primeiros 2000 caracteres do HTML:");
+    console.log(html.substring(0, 2000));
+    console.log("========================================");
+
     await page.waitForSelector(".poly-card", {
         timeout: 30000
     });
 
-    // pega somente o PRIMEIRO produto da lista
     const produtoEncontrado = await page.evaluate(() => {
 
         const card = document.querySelector(".poly-card");
